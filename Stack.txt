@@ -1,0 +1,52 @@
+/*
+ * StackTest.c
+ *
+ *  Created on: Oct 13, 2016
+ *      Author: 517-11
+ */
+
+//2013110023 노다 사오리
+
+#include<stdio.h>
+#include<stdlib.h>
+#define N 100000
+
+int push();
+int pop();
+	char s[N]={' '};
+	int top = -1;
+
+int main(){
+
+		push();
+		pop();
+
+		system("pause");
+		return 0;
+}
+
+int push(){
+	if(top >= N ){
+		printf("overflow");
+		return 0;
+	}
+
+	printf("값을 연속으로입력하시오: ");
+	while(s[top] != '\n'){    // enter key = \n = 10 (askii code)
+		top += 1;
+		s[top] = getchar();
+	}
+	return 1;
+}
+int pop(){
+	if(top == -1){
+		printf("공백스택입니다.\n");
+		return 0;
+	}
+	while(top <= -1){
+		printf("%c",s[top]);
+		top -= 1;
+	}
+	return 1;
+}
+

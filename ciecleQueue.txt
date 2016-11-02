@@ -1,0 +1,99 @@
+//queue
+//2013110023 노다 사오리
+
+#include<stdio.h>
+#define N 5
+
+int enqueue();
+int dequeue();
+int printData();
+int Q[N]={0,};
+int front =0, tail =0,i;
+
+int main(){
+	int chose;
+	int i;
+	int n;
+	while(1){
+		printf("매뉴:	1.삽입\n");
+		printf("	2.삭제\n");
+		printf("	3.출력\n");
+		printf("	4.종료\n");
+		printf("숫차를 입력해주세요;");
+		scanf("%d",&chose);
+
+		if (chose == 1){//삽입
+
+			//enqueue();
+			
+			if((tail+1)%N == front){
+				printf("큐가 꽉 찼습니다\n");
+			}
+			else{
+				printf("삽입할 수를 입력해주세요: ");
+				scanf("%d",&n);
+
+				tail = (tail+1)%N;
+				Q[tail] = n;
+			}
+		}else if(chose == 2){//삭제
+
+			//dequeue();
+			if(front == tail){
+				printf("큐는 곤백입니다\n");
+			}else
+			
+			front = (front+1)%N;
+			Q[front]=0;
+			
+		}else if(chose == 3){//출력
+			if(front == tail){
+				printf("큐는 곤백입니다\n");
+			}
+			//printData();
+			
+			/*while(tail!=front){
+				printf( "%d ",Q[(front+1)%N] );
+				front=(front+1)%N;*/
+			for(i=0;i<N;i++)
+			{
+				printf("[%d] ",Q[i]);
+			}
+			
+	
+		}else if(chose == 4){
+			printf("종료하겠습니다");
+			return 1;;
+		}
+		printf("\n");
+	}
+}
+
+/*
+int enqueue(){
+	int n;
+	if((tail+1)%N == front){
+		printf("큐가 꽉 찼습니다");
+		return 0;
+	}
+	printf("삽입할 수를 입력해주세요: ");
+	scanf("%d",&n);
+
+	Q[(++tail)%N] = n;
+	return 1;
+}
+int dequeue(){
+	if(front == tail){
+		printf("큐는 곤백입니다");
+		return 0;
+	}
+	front = (front+1)%N;
+}
+int printData(){
+	int i;
+	for(i=0;i<N;i++){
+		printf( "%d ",Q[front+1] );
+	}
+	return 1;
+}
+*/
