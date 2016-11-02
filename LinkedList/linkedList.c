@@ -56,6 +56,7 @@ int main(){
 		printf("\n");
 	}
 }
+// insert ------------------------------------
 int insert(){
 	int n;
 	node *tmp =NULL;
@@ -73,7 +74,7 @@ int insert(){
 
 	if(head == NULL){
 		head = tmp;
-		free(tmp);
+		//free(tmp);
 		return 1;
 	}
 	else if(head->num < n){
@@ -84,7 +85,7 @@ int insert(){
 		}
 		else {
 			head->next = tmp;
-			free(tmp);
+			//free(tmp);
 			return 1;
 		}
 	}
@@ -100,26 +101,29 @@ int insert(){
 		}else{
 			q->next = tmp;
 			tmp->next = q;
-			free(tmp);
+			//free(tmp);
 			return 1;
 		}
 	}
 }
+//delete---------------------------------------
 int del(){
 	int n;
 	node *p=NULL;
 	node *q=NULL;
-	p = head;
-	q->next =head;
-
+	
 	if(head == NULL){
 		printf("공백 리스트입니다\n");
 		return 0;
 	}
+
 	printf("삭제할 데이터? ");
 	scanf("%d",&n);
 
-	while(p->next !=NULL && p->num < n){
+	p = head;
+	q->next =head;
+	
+	while(p->next !=NULL && p->num <= n){
 		if(p->num == n){
 			q->next = p->next;
 			return 1;
@@ -130,6 +134,7 @@ int del(){
 	printf("존재하지 않는 숫자입니다.\n");
 	return 0;
 }
+//print out --------------------------------------------
 void print(){
 	node *p=NULL;
 	p = head;
