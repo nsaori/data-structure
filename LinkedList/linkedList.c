@@ -62,8 +62,6 @@ int insert(){
 	node *tmp =NULL;
 	node *p=NULL;
 	node *q=NULL;
-	p = head;
-	//q->next =head;
 	
 	printf("삽입할 데이터? ");
 	scanf("%d",&n);
@@ -72,47 +70,62 @@ int insert(){
 	tmp->num = n;
 	tmp->next =NULL;
 
-	if(head == NULL){
+	if(head == NULL){	//0.요소가 없는 경우
+
 		head = tmp;
 		//free(tmp);
 		return 1;
-	}
-	else if(head->num < n){
-		if(head->num == n){
-			printf("이미 존재하는 숫자입니다.\n");
-			free(tmp);
-			return 0;
-		}
-		else {
-			head->next = tmp;
-			//free(tmp);
+
+	}else{
+
+		if(n < head->num){	// 맨앞에 삽입 하는 경우
+			tmp->next = head;
+			head = tmp;
 			return 1;
 		}
-	}
-	else{
-		while(p->num < n && p->next != NULL){
-		p = p->next;
-		q = q->next;
-		}
-		if(p->num == n){
+		if(head->next == NULL){	//1.요소가 하나인 경우
+			if(head->num == n){	// 숫자가 중복하는 경우
 				printf("이미 존재하는 숫자입니다.\n");
 				free(tmp);
 				return 0;
-		}else{
-			q->next = tmp;
-			tmp->next = q;
-			//free(tmp);
+			}
+			head->next = tmp;
 			return 1;
 		}
+		//2.요소가 2개이상인 경우
+		p = head;
+		//q->next =p;
+		while(n > p->num ){	// 삽입할 위치를 찾는다
+			if(p->next == NULL){ // 맨뒤에 삽입 하는 경우
+				p->next = tmp;
+				return 1;
+			}
+			if(q==NULL){
+				q = head;
+			}else{
+				q = q->next;
+			}
+			p = p->next;
+		}
+		if(p->num == n){		// 숫자가 중복하는 경우
+				printf("이미 존재하는 숫자입니다.\n");
+				free(tmp);
+				return 0;
+		}
+		q->next = tmp;
+		tmp->next = p;
+		//free(tmp);
+		return 1;
 	}
 }
+
 //delete---------------------------------------
 int del(){
 	int n;
 	node *p=NULL;
 	node *q=NULL;
 	
-	if(head == NULL){
+	if(head == NULL){	//0.요소가 없는 경우
 		printf("공백 리스트입니다\n");
 		return 0;
 	}
@@ -120,16 +133,35 @@ int del(){
 	printf("삭제할 데이터? ");
 	scanf("%d",&n);
 
-	p = head;
-	q->next =head;
-	
-	while(p->next !=NULL && p->num <= n){
-		if(p->num == n){
-			q->next = p->next;
+	if(head->next == NULL){	//1. 요소가 하나인 경우
+		if(head->num == n){
+			head = NULL;
 			return 1;
 		}
-		p=p->next;
-		q=q->next;
+		printf("존재하지 않는 숫자입니다.\n");
+		return 0;
+	}
+
+	p = head;
+	//q->next =p;
+	
+	while( p->num <= n){	//2. 요소가 2개이상인 경우
+		if(head->num == n){	//맨앞 요소를 삭제하는 경우
+			head = head->next;
+			return 1;
+		}
+
+		if(p==head){
+			q = head;
+		}else{
+			q = q->next;
+		}
+		p = p->next;
+
+		if(p->num == n){	//delete
+			q->next = p->next;
+			return 1;
+		}	
 	}
 	printf("존재하지 않는 숫자입니다.\n");
 	return 0;
@@ -139,13 +171,21 @@ void print(){
 	node *p=NULL;
 	p = head;
 
-	if(head == NULL){
+	if(head == NULL)	//0.요소가 없을 때 ----------
+	{
 		printf("공백 리스트입니다\n");
-	}else{
+
+	}else if(head->next == NULL) //1.요소가 하나일 때-----
+	{
+		printf("%d\n",head->num);
+
+	}else //2.요소가 2개이상일 때---------
+	{ 
 		while(p->next != NULL){
-			printf("%d\n",p->num);
+			printf("%d\t",p->num);
 			p=p->next;
 		}
+		printf("%d\t",p->num);
 	}
 }
 
